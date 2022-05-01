@@ -1,0 +1,16 @@
+Fitter Status : Successful - Mon May 02 03:05:47 2022
+Quartus Prime Version : 20.1.1 Build 720 11/11/2020 SJ Lite Edition
+Revision Name : pll_test
+Top-level Entity Name : top_cymometer
+Family : Cyclone IV E
+Device : EP4CE6F17C8
+Timing Models : Final
+Total logic elements : 5,555 / 6,272 ( 89 % )
+    Total combinational functions : 5,525 / 6,272 ( 88 % )
+    Dedicated logic registers : 474 / 6,272 ( 8 % )
+Total registers : 474
+Total pins : 18 / 180 ( 10 % )
+Total virtual pins : 0
+Total memory bits : 0 / 276,480 ( 0 % )
+Embedded Multiplier 9-bit elements : 8 / 30 ( 27 % )
+Total PLLs : 1 / 2 ( 50 % )

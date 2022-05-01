@@ -1,0 +1,1 @@
+Info (10281): Verilog HDL Declaration information at cnt.v(2): object "CLK_FS" differs only in case from object "clk_fs" in the same scope File: E:/Code/FPGA/03_pll_test/cnt.v Line: 2

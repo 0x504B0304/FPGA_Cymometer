@@ -1,0 +1,6 @@
+v1
+DSP_BALANCING_IMPLEMENTATION,DSP_BLOCKS,cnt:comb_7|lpm_mult:Mult0|mult_gft:auto_generated|mac_out2,
+DSP_BALANCING_IMPLEMENTATION,DSP_BLOCKS,cnt:comb_7|lpm_mult:Mult0|mult_gft:auto_generated|mac_out8,
+DSP_BALANCING_IMPLEMENTATION,DSP_BLOCKS,cnt:comb_7|lpm_mult:Mult0|mult_gft:auto_generated|mac_out6,
+DSP_BALANCING_IMPLEMENTATION,DSP_BLOCKS,cnt:comb_7|lpm_mult:Mult0|mult_gft:auto_generated|mac_out4,
+PORT_SWAPPING,PORT_SWAPPING_FINISHED,cnt:comb_7|lpm_mult:Mult0|mult_gft:auto_generated|mac_mult3,

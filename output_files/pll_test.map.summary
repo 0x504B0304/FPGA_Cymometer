@@ -1,0 +1,14 @@
+Analysis & Synthesis Status : Successful - Mon May 02 03:05:35 2022
+Quartus Prime Version : 20.1.1 Build 720 11/11/2020 SJ Lite Edition
+Revision Name : pll_test
+Top-level Entity Name : top_cymometer
+Family : Cyclone IV E
+Total logic elements : 5,614
+    Total combinational functions : 5,525
+    Dedicated logic registers : 474
+Total registers : 474
+Total pins : 18
+Total virtual pins : 0
+Total memory bits : 0
+Embedded Multiplier 9-bit elements : 8
+Total PLLs : 1

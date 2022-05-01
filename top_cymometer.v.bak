@@ -1,0 +1,59 @@
+module top_cymometer(
+    //system clock
+    input                  sys_clk  ,    // 时钟信号（系统时钟，50MHz）
+    input                  sys_rst_n,    // 复位信号
+    input                  clk_fx   ,    // 被测时钟
+	output [7:0] led0,
+	output [7:0] led1,
+	output [7:0] led2,
+	output [7:0] led3,
+	output [63:0]data_fx
+);
+ 
+//parameter define
+parameter    CLK_FS = 26'd50000000;      // 基准时钟频率值
+ 
+ 
+gate//生成门控信号
+(
+        .clk_fs      (sys_clk  ),     // 基准时钟信号
+        .rst_n       (sys_rst_n),  // 复位信号
+ 
+        //cymometer interface
+        .clk_fx      (clk_fx   ), //待测信号
+		  .gate(gate ) , //门控信号
+		  .gate_fs(gate_fs) // 同步到基准时钟的门控信号
+		  );
+ 
+pexg//边沿捕获
+(
+        .clk_fs      (sys_clk  ),     // 基准时钟信号
+        .rst_n       (sys_rst_n),  // 复位信号
+ 
+		  .gate(gate ) , //门控信号
+		  .gate_fs(gate_fs), // 同步到基准时钟的门控信号
+       .clk_fx      (clk_fx), //待测信号
+		
+		  .neg_gate_fs(neg_gate_fs),
+		  .neg_gate_fx(neg_gate_fx)
+		  );
+		  
+cnt  
+    (
+	 
+	 //system clock
+        .clk_fs      (sys_clk  ),     // 基准时钟信号
+        .rst_n       (sys_rst_n),  // 复位信号
+ 
+        //cymometer interface
+        .clk_fx      (clk_fx   ), //待测信号
+		  .gate(gate )  ,//门控信号
+		  .gate_fs(gate_fs) ,// 同步到基准时钟的门控信号
+		  .neg_gate_fs(neg_gate_fs),
+		  .neg_gate_fx(neg_gate_fx),
+        
+		  .fs_cnt(fs_cnt)      ,          // 门控时间内基准时钟的计数值
+		  .fx_cnt(fx_cnt)      ,           // 门控时间内被测时钟的计数值		
+        .data_fx_temp(data_fx)  
+);
+endmodule

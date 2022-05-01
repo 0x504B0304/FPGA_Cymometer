@@ -1,0 +1,67 @@
+module cnt
+   #(parameter    CLK_FS = 26'd50_000_000,// 基准时钟频率
+	parameter  MAX       =  10'd64)  // 定义数据位宽        
+    (   //system clock
+        input                 clk_fs ,     // 时钟信号
+        input                 rst_n   ,  // 复位信号
+ 
+        //cymometer interface
+        input                 clk_fx ,     // 待测信号
+		input gate,       // 门控信号（与待测时钟同步）
+		input gate_fs,    // 与基准时钟同步的门控信号
+		input  neg_gate_fx,//
+		input  neg_gate_fs,//
+        
+		output reg    [MAX-1:0]   fs_cnt      ,           //门控时间内基准时钟信号的个数 
+		output reg    [MAX-1:0]   fx_cnt      ,          // 门控时间内待测信号的个数
+		output reg  	[MAX-1:0]   data_fx_temp  // 待测信号的频率值
+);
+ 
+ 
+reg    [MAX-1:0]   fs_cnt_temp ;           // fs_cnt 计数
+reg    [MAX-1:0]   fx_cnt_temp ;           // fx_cnt 计数
+ 
+//门控时间内待测信号的计数，设置的为5000个，这里重新计数，只是用于检验信号是否正确
+always @(posedge clk_fx or negedge rst_n) begin
+    if(!rst_n) begin
+        fx_cnt_temp <= 32'd0;
+        fx_cnt <= 32'd0;
+    end
+    else if(gate)begin
+      fx_cnt_temp <= fx_cnt_temp + 1'b1;
+    end   
+    else if(neg_gate_fx) begin
+        
+        fx_cnt_temp <= 32'd0;
+        fx_cnt <= fx_cnt_temp;
+        
+    end
+end
+ 
+//门控时间内基准时钟的计数
+always @(posedge clk_fs or negedge rst_n) begin
+    if(!rst_n) begin
+        fs_cnt_temp <= 32'd0;
+        fs_cnt <= 32'd0;
+    end
+    else if(gate_fs)
+        begin
+        fs_cnt_temp <= fs_cnt_temp + 1'b1;
+        end
+    else if(neg_gate_fs) begin
+        
+        fs_cnt_temp <= 32'd0;
+		fs_cnt <= fs_cnt_temp;
+    end
+end
+//计算待测信号的频率值
+always @(posedge clk_fs or negedge rst_n) begin
+    if(!rst_n) begin
+        data_fx_temp <= 64'd0;
+    end
+    else if(gate_fs == 1'b0)
+			data_fx_temp <=CLK_FS*fx_cnt/fs_cnt;
+end
+ 
+endmodule
+
